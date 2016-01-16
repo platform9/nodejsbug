@@ -42,11 +42,11 @@ function download() {
             var size = fs.statSync(TEMP_FILE_NAME).size;
             if (size != len) {
                 var msg = 'file size mismatch ' + size + ' != ' + len;
-                fail(msg);
+                console.error(msg);
             } else {
                 console.log('Download OK');
+                next();
             }
-            next();
         }
     }
 
