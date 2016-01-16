@@ -1,14 +1,9 @@
 
 'use strict';
 var https = require('https');
-var streamBuffers;
-try {
-    streamBuffers = require('stream-buffers');
-} catch (err) {
-    streamBuffers = require('../client/node_modules/stream-buffers');
-}
 var srcUrl = 'https://nodejsbug.platform9.horse/';
 var fs = require('fs');
+var TEMP_FILE_NAME = 'tempFile.dat';
 
 var urlParser = require('url');
 var fields = urlParser.parse(srcUrl);
@@ -34,10 +29,7 @@ function download() {
         console.log('content length:', len);
         if (len === undefined)
             fail('no content length');
-        var stream = new streamBuffers.WritableStreamBuffer({
-            initialSize: 4*1024*1024,    // 4 MB
-            incrementAmount: 4*1024*1024 // 4 MB
-        });
+        var stream = fs.createWriteStream(TEMP_FILE_NAME);
         stream.on('error', onStreamError);
         stream.once('finish', onStreamFinish);
         resp.pipe(stream);
@@ -47,8 +39,9 @@ function download() {
             console.error('stream error:', err);
         }
         function onStreamFinish() {
-            if (stream.size() != len) {
-                var msg = 'file size mismatch ' + stream.size() + ' != ' + len;
+            var size = fs.statSync(TEMP_FILE_NAME).size;
+            if (size != len) {
+                var msg = 'file size mismatch ' + size + ' != ' + len;
                 fail(msg);
             } else {
                 console.log('Download OK');

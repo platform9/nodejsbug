@@ -32,7 +32,7 @@ First, run `./httpsDownloadTest.sh` script. It executes curl 10 times and prints
 124416
 ```
 
-Next, run the test program httpsDownloadTest.js under node 0.10.41. It streams the content to memory using a WriteableStreamBuffer,  prints the final buffer length and verifies that it equals the Content-Length specified by the server:
+Next, run the test program httpsDownloadTest.js under node 0.10.41. It streams the contents to a file,  prints the final file length and verifies that it equals the Content-Length specified by the server:
 
 ```
 [centos@ip-172-31-23-87 ~]$ node-v0.10.41-linux-x64/bin/node httpsDownloadTest.js 
