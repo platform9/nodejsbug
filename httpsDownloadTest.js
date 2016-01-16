@@ -7,9 +7,6 @@ try {
 } catch (err) {
     streamBuffers = require('../client/node_modules/stream-buffers');
 }
-//var srcUrl = 'https://nodejs.org/dist/v4.2.4/node-v4.2.4.tar.gz';
-//var srcUrl = 'https://10.4.254.140/clarity/pf9-ostackhost-1.4.0-1920.x86_64.rpm';
-//var srcUrl = 'https://10.4.254.140/';
 var srcUrl = 'https://nodejsbug.platform9.horse/';
 var fs = require('fs');
 
@@ -17,16 +14,10 @@ var urlParser = require('url');
 var fields = urlParser.parse(srcUrl);
 var opts = {
     hostname: fields.hostname,
-    // servername: 'squid',
-    /*
-    ca: fs.readFileSync('/etc/pf9/certs/ca/cert.pem'),
-    key: fs.readFileSync('/etc/pf9/certs/hostagent/key.pem'),
-    cert: fs.readFileSync('/etc/pf9/certs/hostagent/cert.pem'),
-    */
     path: fields.path
 };
 opts.rejectUnauthorized = false;
-var remaining = 20;
+var remaining = 10;
 download();
 
 function download() {
